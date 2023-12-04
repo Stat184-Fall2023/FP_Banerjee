@@ -2,12 +2,14 @@
 title: "Economic Data Analysis Final Project"
 author: "Indrayan Banerjee"
 date: "2023-11-25"
-output:
-  pdf_document: default
-  word_document: default
+output: 
+  pdf_document:
+    latex_engine: xelatex
 geometry: left=0.5in,right=0.5in,top=0.5in,bottom=0.5in
 urlcolor: blue
-header-includes: \usepackage{subfig}
+header-includes: 
+- \usepackage{subfig}
+- \usepackage{booktabs}
 ---
 
 ```{r setup, include=FALSE}
@@ -248,6 +250,27 @@ ggplot(avg_home_price_by_region, aes(x = Region, y = Avg_Home_Price, fill = Regi
 ```
 
 As we can see from this chart, we're correct. The western part of the country is the most expensive part of the country to live in. Since we remember, it is also the part of the country that's growing the fastest. By using data analytics and data visualization, we were able to predict correctly something that would have been hard to understand without this type of data, showing how vital this type of research could be in economics.
+
+```{r westtable, echo=FALSE, message=FALSE, warning=FALSE, fig.align = 'center'}
+
+library(knitr)
+
+avg_home_price_by_region$Avg_Home_Price <- paste0("$", formatC(round(avg_home_price_by_region$Avg_Home_Price), format = "f", big.mark = ","))
+
+
+temp_table <- avg_home_price_by_region
+colnames(temp_table)[2] <- "Average Home Price Per Region"
+
+
+kable_output <- kable(temp_table, format = "latex", booktabs = TRUE, align = "cc")
+
+kable_output
+
+
+
+```
+
+In the table above we can see that the difference in average home price across the Northeast and West is still a solid \$57,564. Showing that the western US is by far has the most expensive real estate market in the country.
 
 # Findings and Conclusions
 
